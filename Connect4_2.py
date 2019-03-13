@@ -26,7 +26,7 @@ def choice(human, board, comp_diff, letter):
     if human == 1:
         return human_choice(board)
     else:
-        board_array = board.get_array()
+        board_array = board.positions
         output = AI_2.ai_choice(board_array, comp_diff, letter)
         print("%s chooses slot %d" % (letter, output+1))
         return output

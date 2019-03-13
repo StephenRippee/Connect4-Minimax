@@ -32,24 +32,6 @@ class Board(object):
         else:
             return 0
 
-    # Unused and archaic method
-    def get_array(self):
-        new_array = []
-        for x in range(7):
-            new_array.append([" " for n in range(6)])
-
-        for x in range(7):
-            for y in range(6):
-                new_array[x][y] = self.positions[x][y]
-
-        return new_array
-
-    # Unused and archaic method
-    def set_array(self, new_array):
-        for x in range(7):
-            for y in range(6):
-                self.positions[x][y] = new_array[x][y]
-
     # Detects if there is a winner in the current state and returns the letter than won if there is
     def detect_win(self):
         # Vertical

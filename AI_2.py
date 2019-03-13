@@ -107,11 +107,15 @@ def ai_choice(input_array, comp_diff, letter):  # (game board array, computer di
             print("%d/7 " % x, end='')
         if check_open(x) == 1:
             choices[x] = ai_loop(x, letter, opponent_letter, comp_diff)
+            if choices[x] == letter:  # if this position leads to a win, choose it
+                print("")
+                return x
+
     print("Progress: 7/7")
 
     best = 0  # best option
     for i in range(7):
-        if choices[i] != "f" and (choices[i] == letter or (choices[best] == opponent_letter and choices[i] == " ")):
+        if choices[i] != "f" and choices[best] == opponent_letter and choices[i] == " ":
             best = i
         print("Slot %d: %s | Best slot: %d" % (i+1, choices[i], best+1))
 
@@ -165,13 +169,11 @@ def ai_loop(drop_slot, letter, opponent_letter, comp_diff):
             for x in range(7):
                 if check_open(x) == 1:
                     choices[x] = ai_loop(x, letter, opponent_letter, comp_diff-1)  # loops through new choices
+                    if choices[x] == letter:   # If this letter won, return that letter
+                        pick_up(drop_slot)
+                        return letter
                 else:
                     choices[x] = " "  # Returns " " if no choices lead to win/loss
-
-            for i in range(7):
-                if choices[i] == letter:  # If this letter won, return that letter
-                    pick_up(drop_slot)
-                    return letter
 
             for i in range(7):
                 if choices[i] == " ":  # If this letter can avoid a loss, return " "
